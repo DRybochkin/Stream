@@ -1,0 +1,50 @@
+included:
+- StreamTest
+excluded:
+- Source/Pods
+- Pods
+opt_in_rules:
+  - empty_count
+  - explicit_init
+  - closure_spacing
+  - overridden_super_call
+  - redundant_nil_coalescing
+  - nimble_operator
+  - attributes
+  - operator_usage_whitespace
+  - closure_end_indentation
+  - first_where
+  - sorted_imports
+  - object_literal
+  - number_separator
+  - prohibited_super_call
+  - fatal_error_message
+
+disabled_rules:
+- control_statement
+- cyclomatic_complexity
+- todo
+- redundant_string_enum_value
+
+line_length: 1000
+function_body_length: 80
+type_body_length: 600
+file_length: 1000
+
+type_name:
+    excluded:
+        - T
+
+identifier_name:
+    min_length:
+        error: 3
+    excluded:
+        - id
+        - el
+        - URL
+        - lhs
+        - rhs
+        - db
+
+number_separator:
+  minimum_length: 5
