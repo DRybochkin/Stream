@@ -26,10 +26,10 @@ class PlaceModel: SerializableObject {
     dynamic var location: PlaceLocationModel?
     dynamic var additionalInfo: String = ""
     dynamic var importantInfo: String = ""
-    var schedules: List<ScheduleModel> = List<ScheduleModel>() //"пн.-пт.: 08.00-20.00; сб.: 09.00-18.00, обед: 14.00-15.00"
+    var schedule: List<ScheduleModel> = List<ScheduleModel>() //"пн.-пт.: 08.00-20.00; сб.: 09.00-18.00, обед: 14.00-15.00"
     dynamic var operations: String = ""
-    dynamic var dateCreatedAt: Date = Date() // "2016-10-21T01:00:57+03:00"
-    dynamic var dateModifiedAt: Date? // "2016-10-21T01:00:57+03:00",
+    dynamic var createdAt: Date = Date() // "2016-10-21T01:00:57+03:00"
+    dynamic var modifiedAt: Date? // "2016-10-21T01:00:57+03:00",
     dynamic var partner: PartnerModel?
 
     var calcTitle: String {
@@ -45,17 +45,17 @@ class PlaceModel: SerializableObject {
     }
 
     var calcSchedule: String {
-        if schedules.isEmpty {
+        if schedule.isEmpty {
             return "Расписание не задано"
         } else {
             var res = "Расписание:\n"
             var startGroup = 0
-            for i in 0..<schedules.count {
-                if startGroup == schedules[i].group {
-                    res += "\(schedules[i].calcTitle) "
+            for i in 0..<schedule.count {
+                if startGroup == schedule[i].group {
+                    res += "\(schedule[i].calcTitle) "
                 } else {
-                    startGroup = schedules[i].group
-                    res += "\n\(schedules[i].calcTitle) "
+                    startGroup = schedule[i].group
+                    res += "\n\(schedule[i].calcTitle) "
                 }
             }
             return res
@@ -67,9 +67,40 @@ class PlaceModel: SerializableObject {
     }
 
     override func mapping(map: Map) {
-        schedules <- (map["schedule"], SheduleTransform())
-        dateCreatedAt <- (map["createdAt"], CustomDateTransform())
-        dateModifiedAt <- (map["modifiedAt"], CustomDateTransform())
+        super.mapping(map: map)
+
+        if map.mappingType == .toJSON {
+            id >>> map["id"]
+            type >>> map["type"]
+            title >>> map["title"]
+            city >>> map["city"]
+            region >>> map["region"]
+            address >>> map["address"]
+            location >>> map["location"]
+            additionalInfo >>> map["additionalInfo"]
+            importantInfo >>> map["importantInfo"]
+            operations >>> map["operations"]
+            partner >>> map["partner"]
+            schedule >>> (map["schedule"], SheduleTransform())
+            createdAt >>> (map["createdAt"], CustomDateTransform())
+            modifiedAt >>> (map["modifiedAt"], CustomDateTransform())
+        } else {
+            id <- map["id"]
+            type <- map["type"]
+            title <- map["title"]
+            city <- map["city"]
+            region <- map["region"]
+            address <- map["address"]
+            location <- map["location"]
+            additionalInfo <- map["additionalInfo"]
+            importantInfo <- map["importantInfo"]
+            operations <- map["operations"]
+            partner <- map["partner"]
+            schedule <- (map["schedule"], SheduleTransform())
+            createdAt <- (map["createdAt"], CustomDateTransform())
+            modifiedAt <- (map["modifiedAt"], CustomDateTransform())
+        }
+
     }
 
     override class func primaryKey() -> String? {

@@ -32,4 +32,16 @@ class PlaceLocationModel: SerializableObject {
         }
         return "Геолокация не включена"
     }
+
+    override func mapping(map: Map) {
+        super.mapping(map: map)
+
+        if map.mappingType == .toJSON {
+            lat >>> map["lat"]
+            lng >>> map["lng"]
+        } else {
+            lat <- map["lat"]
+            lng <- map["lng"]
+        }
+    }
 }

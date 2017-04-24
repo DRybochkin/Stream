@@ -6,6 +6,7 @@
 //  Copyright © 2017 Dmitry Rybochkin. All rights reserved.
 //
 
+import ObjectMapper
 import RealmSwift
 import UIKit
 
@@ -118,6 +119,7 @@ class TableViewController: UITableViewController {
                 cell.addressLabel.text = items[indexPath.row].address
                 cell.sheduleLabel.text = items[indexPath.row].calcSchedule
                 cell.distanceLabel.text = items[indexPath.row].location?.distance
+                print("==>", items[indexPath.row].toJSON())
             }
             return cell
         } else {

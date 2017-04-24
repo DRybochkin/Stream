@@ -34,6 +34,20 @@ public class ScheduleModel: SerializableObject {
         self.group = group
     }
 
+    override public func mapping(map: Map) {
+        super.mapping(map: map)
+
+        if map.mappingType == .toJSON {
+            title >>> map["title"]
+            period >>> map["period"]
+            group >>> map["group"]
+        } else {
+            title <- map["title"]
+            period <- map["period"]
+            group <- map["group"]
+        }
+    }
+
     // Specify properties to ignore (Realm won't persist these)
 
     //  override static func ignoredProperties() -> [String] {

@@ -65,6 +65,36 @@ open class SheduleTransform: TransformType {
     }
 
     open func transformToJSON(_ value: List<ScheduleModel>?) -> String? {
-        return ""
+        var res = ""
+        var group = 0
+        var sep = ""
+        for item in value! {
+            res += "\(sep)\(item.title):\(item.period)"
+            sep = group < item.group ? "," : ";"
+            group = item.group
+        }
+        return res
     }
+}
+
+open class ListTransform<T: RealmSwift.Object>: TransformType where T: BaseMappable {
+
+    public init() { }
+
+    public typealias Object = List<T>
+    public typealias JSON = [Any]
+
+    public func transformFromJSON(_ value: Any?) -> List<T>? {
+        if let objects = Mapper<T>().mapArray(JSONObject: value) {
+            let list = List<T>()
+            list.append(objectsIn: objects)
+            return list
+        }
+        return nil
+    }
+
+    public func transformToJSON(_ value: Object?) -> JSON? {
+        return value?.flatMap { $0.toJSON() }
+    }
+
 }

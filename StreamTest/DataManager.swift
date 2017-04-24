@@ -108,7 +108,7 @@ public class DataManager {
                 if let places: [PlaceModel] = result?.serialize(PlaceModel.self, fromItem:"items") {
                     loadedItems.append(contentsOf: places)
                 } else {
-                    print("\(succeed), \(result), \(error)")
+                    print("\(succeed), \(String(describing: result)), \(String(describing: error))")
                 }
                 fileLoadGroup.leave()
             })
@@ -123,18 +123,18 @@ public class DataManager {
             for item in loadedItems {
                 if itemsToUpdate.keys.contains(item.id) {
                     if let oldItem = itemsToUpdate[item.id] {
-                        if item.dateModifiedAt! > oldItem.dateModifiedAt! {
+                        if item.modifiedAt! > oldItem.modifiedAt! {
                             itemsToUpdate[item.id] = item
                         }
                     }
                 } else {
                     if let oldItem = self.getItem(PlaceModel.self, itemId: item.id) {
-                        if (forceUpdate) || (item.dateModifiedAt == nil) || (oldItem.dateModifiedAt == nil) || (item.dateModifiedAt! > oldItem.dateModifiedAt!) {
+                        if (forceUpdate) || (item.modifiedAt == nil) || (oldItem.modifiedAt == nil) || (item.modifiedAt! > oldItem.modifiedAt!) {
                             if let loc = oldItem.location {
                                 locationsToDelete.append(loc)
                             }
-                            if !oldItem.schedules.isEmpty {
-                                schedulesToDelete.append(oldItem.schedules)
+                            if !oldItem.schedule.isEmpty {
+                                schedulesToDelete.append(oldItem.schedule)
                             }
                             itemsToUpdate[item.id] = item
                         }

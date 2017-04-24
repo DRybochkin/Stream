@@ -21,6 +21,16 @@ class PartnerModel: SerializableObject {
         return "id"
     }
 
+    override func mapping(map: Map) {
+        super.mapping(map: map)
+        if map.mappingType == .toJSON {
+            id >>> map["id"]
+            name >>> map["name"]
+        } else {
+            id <- map["id"]
+            name <- map["name"]
+        }
+    }
     // Specify properties to ignore (Realm won't persist these)
 
     //  override static func ignoredProperties() -> [String] {

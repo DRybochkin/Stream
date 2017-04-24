@@ -19,10 +19,9 @@ public extension String {
                     if !subItems.isEmpty {
                         var res = [T]()
                         for json in subItems {
-                            var item = T(value: json)
-                            item = Mapper(context: nil, shouldIncludeNilValues: true)
-                                .map(JSON: json, toObject: T(value: json))
-                            res.append(item)
+                            if let item = Mapper<T>(context: nil, shouldIncludeNilValues: true).map(JSON: json) {
+                                res.append(item)
+                            }
                         }
                         return res
                     }
@@ -37,11 +36,9 @@ public extension String {
     public func serialize<T: SerializableObject>(_ asType: T.Type) -> T? {
         if let data = self.data(using: .utf8) {
             do {
-                let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any]
-
-                if json != nil {
-                    return Mapper(context: nil, shouldIncludeNilValues: true)
-                        .map(JSON: json!, toObject: T(value: json!))
+                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String:Any] {
+                    return Mapper<T>(context: nil, shouldIncludeNilValues: true)
+                        .map(JSON: json)
                 }
             } catch {
                 print(error.localizedDescription)
@@ -57,10 +54,9 @@ public extension String {
                 if (jsons != nil) && ((jsons?.count)! > 0) {
                     var res = [T]()
                     for json in jsons! {
-                        var item = T(value: json)
-                        item = Mapper(context: nil, shouldIncludeNilValues: true)
-                            .map(JSON: json, toObject: T(value: json))
-                        res.append(item)
+                        if let item = Mapper<T>(context: nil, shouldIncludeNilValues: true).map(JSON: json) {
+                            res.append(item)
+                        }
                     }
                     return res
                 }

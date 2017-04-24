@@ -34,6 +34,16 @@ public class SerializableObject: Object, Mappable {
     }
 
     public func mapping(map: Map) {
+        /*var opened = false
+        if let realm = self.realm, !realm.isInWriteTransaction {
+            realm.beginWrite()
+            opened = true
+        }
+        defer {
+            if opened {
+                map.mappingType == .fromJSON ? try! self.realm?.commitWrite() : self.realm?.cancelWrite() // swiftlint:disable:this force_try
+            }
+        }*/
     }
 
     public func setChildId() {
