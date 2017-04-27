@@ -224,7 +224,7 @@
 				TargetAttributes = {
 					4E987E341E8F9B230019D619 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 7S572U2C68;
+						DevelopmentTeam = ZQ9U2EUQ6N;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Maps.iOS = {
@@ -472,8 +472,9 @@
 			baseConfigurationReference = 39F44FFD7146EC4095B1A871 /* Pods-StreamTest.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7S572U2C68;
+				DEVELOPMENT_TEAM = ZQ9U2EUQ6N;
 				INFOPLIST_FILE = StreamTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.turing.StreamTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -487,8 +488,9 @@
 			baseConfigurationReference = 854FC5100F65FA37CB2A1084 /* Pods-StreamTest.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 7S572U2C68;
+				DEVELOPMENT_TEAM = ZQ9U2EUQ6N;
 				INFOPLIST_FILE = StreamTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.turing.StreamTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";

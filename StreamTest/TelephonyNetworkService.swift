@@ -19,10 +19,10 @@ import SystemConfiguration.CaptiveNetwork
 class TelephonyNetworkService: NSObject, AVAudioSessionDelegate {
     public static let sharedManager = TelephonyNetworkService()
     let motionManager = CMMotionManager()
-    
+
     private override init() {
         super.init()
-        
+
         let ctTelephonyNetworkInfo = CTTelephonyNetworkInfo()
         print("CTTelephonyNetworkInfo.currentRadioAccessTechnology:", ctTelephonyNetworkInfo.currentRadioAccessTechnology ?? "")
         if ctTelephonyNetworkInfo.subscriberCellularProvider != nil {
@@ -39,7 +39,7 @@ class TelephonyNetworkService: NSObject, AVAudioSessionDelegate {
             print("carrier.mobileCountryCode:", carrier.mobileCountryCode ?? "")
             print("carrier.mobileNetworkCode:", carrier.mobileNetworkCode ?? "")
         }
-        
+
         let ctCallCenter = CTCallCenter()
         ctCallCenter.callEventHandler = { (ctCall) in
             print("ctCallCenter.callEventHandler: ", ctCall)
@@ -52,13 +52,13 @@ class TelephonyNetworkService: NSObject, AVAudioSessionDelegate {
         } else {
             print("CTCallCenter.currentCalls: empty")
         }
-        
+
         let ctCellularData = CTCellularData()
         print("CTCellularData.restrictedState: \(ctCellularData.restrictedState)")
         ctCellularData.cellularDataRestrictionDidUpdateNotifier = { (state) in
             print("ctCellularData.cellularDataRestrictionDidUpdateNotifier: ", state) //CTCellularDataRestrictedState
         }
-        
+
         let store = CNContactStore()
         let status = CNContactStore.authorizationStatus(for: .contacts)
         if (status == .notDetermined) {
@@ -70,10 +70,10 @@ class TelephonyNetworkService: NSObject, AVAudioSessionDelegate {
         } else if (status == .authorized) {
             getContacts()
         }
-        
+
         UIDevice.current.isBatteryMonitoringEnabled = true
         UIDevice.current.isProximityMonitoringEnabled = true
-        
+
         print("batteryLevel: ", UIDevice.current.batteryLevel)
         print("batteryState: \(UIDevice.current.batteryState)")
         print("identifierForVendor: ", UIDevice.current.identifierForVendor ?? "")
@@ -88,31 +88,31 @@ class TelephonyNetworkService: NSObject, AVAudioSessionDelegate {
         print("isMultitaskingSupported: ", UIDevice.current.isMultitaskingSupported)
         print("isGeneratingDeviceOrientationNotifications: ", UIDevice.current.isGeneratingDeviceOrientationNotifications)
         print("orientation: \(UIDevice.current.orientation)")
-        
+
         NotificationCenter.default.addObserver(self, selector: Selector(("batteryStateDidChange:")), name: NSNotification.Name.UIDeviceBatteryStateDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: Selector(("batteryLevelDidChange:")), name: NSNotification.Name.UIDeviceBatteryLevelDidChange, object: nil)
-        
+
         if motionManager.isMagnetometerAvailable {
             motionManager.magnetometerUpdateInterval = 60 * 60 * 5
             motionManager.startMagnetometerUpdates(to: OperationQueue.current!, withHandler: { (data, error) in
                 print("tMagnetometer data: ", data ?? "", " | error: ", error ?? "")
             })
         }
-        
+
         if motionManager.isGyroAvailable {
             motionManager.gyroUpdateInterval = 60 * 60 * 5
             motionManager.startGyroUpdates(to: OperationQueue.current!, withHandler: { (data, error) in
                 print("Gyro data: ", data ?? "", " | error: ", error ?? "")
             })
         }
-        
+
         if motionManager.isAccelerometerAvailable {
             motionManager.accelerometerUpdateInterval = 60 * 60 * 5
             motionManager.startAccelerometerUpdates(to: OperationQueue.current!, withHandler: { (data, error) in
                 print("Accelerometer data: ", data ?? "", " | error: ", error ?? "")
             })
         }
-        
+
         if motionManager.isDeviceMotionAvailable {
             motionManager.deviceMotionUpdateInterval = 60 * 60 * 5
             motionManager.startDeviceMotionUpdates(to: OperationQueue.current!, withHandler: { (data, error) in
@@ -128,28 +128,28 @@ class TelephonyNetworkService: NSObject, AVAudioSessionDelegate {
         }
         _ = connectedToNetwork()
     }
-    
+
     deinit {
     }
-    
+
     func batteryStateDidChange(notification: NSNotification) {
         print("notification batteryState: \(UIDevice.current.batteryState)")
     }
-    
+
     func batteryLevelDidChange(notification: NSNotification) {
         print("notification batteryLevel: ", UIDevice.current.batteryLevel)
     }
-    
+
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == "outputVolume" {
             print("Sound outputVolume tracking: ", AVAudioSession.sharedInstance().outputVolume)
         }
     }
-    
+
     func connectedToNetwork() {
-        
+
         let reachability = Reachability()!
-        
+
         reachability.whenReachable = { reachability in
             // this is called on a background thread, but UI updates must
             // be on the main thread, like this:
@@ -168,17 +168,17 @@ class TelephonyNetworkService: NSObject, AVAudioSessionDelegate {
                 print("Not reachable")
             }
         }
-        
+
         do {
             try reachability.startNotifier()
         } catch {
             print("Unable to start notifier")
         }
     }
-    
+
     func getContacts() {
         let contactStore = CNContactStore()
-        
+
         var keys = [
             CNContactIdentifierKey as CNKeyDescriptor,
             CNContactEmailAddressesKey as CNKeyDescriptor,
@@ -197,7 +197,7 @@ class TelephonyNetworkService: NSObject, AVAudioSessionDelegate {
             CNContactPhoneticGivenNameKey as CNKeyDescriptor,
             CNContactPhoneticMiddleNameKey as CNKeyDescriptor,
             CNContactPhoneticFamilyNameKey as CNKeyDescriptor]
-        
+
         if #available(iOS 10.0, *) {
             keys.append(contentsOf: [CNContactPhoneticOrganizationNameKey as CNKeyDescriptor,
                                      CNContactBirthdayKey as CNKeyDescriptor,
@@ -218,18 +218,18 @@ class TelephonyNetworkService: NSObject, AVAudioSessionDelegate {
         }
         let request = CNContactFetchRequest(keysToFetch: keys)
         do {
-            
+
             try contactStore.enumerateContacts(with: request) { contact, _ in
                 print("contact: ", contact)
             }
         } catch let error {
             print(error.localizedDescription)
         }
-        
+
         _ = getNetworkInterfaces()
-        
+
     }
-    
+
     func getNetworkInterfaces() -> Bool {
         guard let unwrappedCFArrayInterfaces = CNCopySupportedInterfaces() else {
             print("this must be a simulator, no interfaces found")
@@ -256,7 +256,7 @@ class TelephonyNetworkService: NSObject, AVAudioSessionDelegate {
                         print(str)
                     }
                 }
-                
+
             }
         }
         return true

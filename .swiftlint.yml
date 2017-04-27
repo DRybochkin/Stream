@@ -35,6 +35,17 @@ type_name:
     excluded:
         - T
 
+variable_name:
+    min_length:
+        error: 3
+    excluded:
+        - id
+        - el
+        - URL
+        - lhs
+        - rhs
+        - db
+
 identifier_name:
     min_length:
         error: 3

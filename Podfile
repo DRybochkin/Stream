@@ -13,6 +13,12 @@ target 'StreamTest' do
   # Mapper serialization
   pod 'ObjectMapper'
   
+  # Location
+  pod 'SwiftLocation'
+
+  # Reachability
+  pod 'ReachabilitySwift'
+
 end
 
 post_install do |installer|
