@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1E63B785CA95213AE4979DDB /* Pods_StreamTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED9965F53693D4947BAF86DA /* Pods_StreamTest.framework */; };
+		36A6D4E01EB2356F006FB34C /* TelephonyNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A6D4DF1EB2356F006FB34C /* TelephonyNetworkService.swift */; };
 		4E987E391E8F9B230019D619 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E987E381E8F9B230019D619 /* AppDelegate.swift */; };
 		4E987E3E1E8F9B230019D619 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E987E3C1E8F9B230019D619 /* Main.storyboard */; };
 		4E987E401E8F9B240019D619 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E987E3F1E8F9B240019D619 /* Assets.xcassets */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		36A6D4DF1EB2356F006FB34C /* TelephonyNetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TelephonyNetworkService.swift; sourceTree = "<group>"; };
 		39F44FFD7146EC4095B1A871 /* Pods-StreamTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StreamTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StreamTest/Pods-StreamTest.debug.xcconfig"; sourceTree = "<group>"; };
 		4E987E351E8F9B230019D619 /* StreamTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StreamTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E987E381E8F9B230019D619 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 			children = (
 				4E987E621E8F9FFB0019D619 /* RestServiceRequest.swift */,
 				4E987E631E8F9FFB0019D619 /* ServiceClient.swift */,
+				36A6D4DF1EB2356F006FB34C /* TelephonyNetworkService.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				4E987E6A1E8FA04F0019D619 /* PartnerModel.swift in Sources */,
 				4E987E581E8F9F3C0019D619 /* TransformTypes.swift in Sources */,
 				4E987E551E8F9F3C0019D619 /* SerializableObject.swift in Sources */,
+				36A6D4E01EB2356F006FB34C /* TelephonyNetworkService.swift in Sources */,
 				4E987E4C1E8F9F000019D619 /* DataManager.swift in Sources */,
 				4E987E6E1E8FA0850019D619 /* TableViewController.swift in Sources */,
 				4E987E701E8FA6CF0019D619 /* PlaceLocationModel.swift in Sources */,
