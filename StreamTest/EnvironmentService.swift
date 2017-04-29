@@ -42,7 +42,7 @@ class EnvironmentTrackingRequest<T>: Equatable {
     }
 
     static func == (lhs: EnvironmentTrackingRequest<T>, rhs: EnvironmentTrackingRequest<T>) -> Bool {
-        return lhs == rhs
+        return lhs === rhs
     }
 
 }

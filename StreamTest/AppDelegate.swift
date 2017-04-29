@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("1 ==> data: \(String(describing: data)) | error \(String(describing: error))")
         })
 
-        _ = MotionService.sharedManager.addRequestWith(callback: { (data, error) in
+        let request = MotionService.sharedManager.addRequestWith(callback: { (data, error) in
             print("2 ==> data: \(String(describing: data)) | error \(String(describing: error))")
         })
 
@@ -74,6 +74,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
 
         _ = BatteryService.sharedManager.startTrackingWith()
+
+        MotionService.sharedManager.removeRequest(request)
 
         /*
         if #available(iOS 10.0, *) {
