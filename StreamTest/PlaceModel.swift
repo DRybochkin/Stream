@@ -69,6 +69,7 @@ class PlaceModel: SerializableObject {
     override func mapping(map: Map) {
         super.mapping(map: map)
 
+        //print(objectSchema.properties)
         if map.mappingType == .toJSON {
             id >>> map["id"]
             type >>> map["type"]
@@ -99,6 +100,11 @@ class PlaceModel: SerializableObject {
             schedule <- (map["schedule"], SheduleTransform())
             createdAt <- (map["createdAt"], CustomDateTransform())
             modifiedAt <- (map["modifiedAt"], CustomDateTransform())
+        }
+        print(objectSchema)
+        for property in objectSchema.properties {
+            print(property.name, property.type, map.JSON) // swiftlint:disable:this force_try
+            //setValue(map[property.name], forKey: property.name)
         }
 
     }
