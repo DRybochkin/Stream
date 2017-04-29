@@ -20,7 +20,7 @@ class PlaceLocationModel: SerializableObject {
     }
 
     var distance: String {
-        if let curLoc = LocationService.sharedManager.currentLocation {
+        /*if let curLoc = LocationService.sharedManager.currentLocation {
             let loc = CLLocation(latitude: lat, longitude: lng)
             let dist = curLoc.distance(from: loc)
 
@@ -29,7 +29,7 @@ class PlaceLocationModel: SerializableObject {
             formatter.units = .metric
             formatter.unitStyle = .abbreviated
             return formatter.string(fromDistance: dist)
-        }
+        }*/
         return "Геолокация не включена"
     }
 

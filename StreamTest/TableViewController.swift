@@ -13,7 +13,7 @@ import UIKit
 class TableViewController: UITableViewController {
     var indicator: UIActivityIndicatorView?
 
-    let dataManager = DataManager.sharedManager
+    //let dataManager = DataManager.sharedManager
     var items: [PlaceModel] = []
 
     override func viewDidLoad() {
@@ -83,7 +83,7 @@ class TableViewController: UITableViewController {
     }
 
     func loadDataAndUpdateUI() {
-        items = dataManager.getItems(PlaceModel.self)
+        //items = dataManager.getItems(PlaceModel.self)
         self.tableView.reloadData()
     }
 

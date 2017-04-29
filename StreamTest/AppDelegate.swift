@@ -49,10 +49,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var timer: Timer?
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        _ = DataManager.sharedManager
+        //_ = DataManager.sharedManager
 
-        _ = LocationService.sharedManager
+        //_ = LocationService.sharedManager
 
+        _ = MotionService.sharedManager.addRequestWith(callback: { (data, error) in
+            print("1 ==> data: \(String(describing: data)) | error \(String(describing: error))")
+        })
+
+        _ = MotionService.sharedManager.addRequestWith(callback: { (data, error) in
+            print("2 ==> data: \(String(describing: data)) | error \(String(describing: error))")
+        })
+
+        _ = MotionService.sharedManager.startTrackingWith(interval: 1)
+
+        _ = DeviceService.sharedManager.addRequestWith(callback: { (data, error) in
+            print("3 ==> data: \(String(describing: data)) | error \(String(describing: error))")
+        })
+
+        _ = DeviceService.sharedManager.startTrackingWith(interval: 100)
+
+        _ = BatteryService.sharedManager.addRequestWith(callback: { (data, error) in
+            print("4 ==> data: \(String(describing: data)) | error \(String(describing: error))")
+        })
+
+        _ = BatteryService.sharedManager.startTrackingWith()
+
+        /*
         if #available(iOS 10.0, *) {
             timer = Timer(timeInterval: TimeInterval(timeItervalCheck), repeats: true, block: onTimer)
         } else {
@@ -64,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         RunLoop.main.add(timer!, forMode: RunLoopMode.commonModes)
 
         timer?.fire()
-
+*/
         return true
     }
 

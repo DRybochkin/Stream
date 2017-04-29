@@ -5,7 +5,8 @@ target 'StreamTest' do
   use_frameworks!
   
   # Mobile DB
-  pod 'RealmSwift', '2.4.4'
+  pod 'Realm', '2.6.2'
+  pod 'RealmSwift', '2.6.2'
   
   # Networking
   pod 'Alamofire'

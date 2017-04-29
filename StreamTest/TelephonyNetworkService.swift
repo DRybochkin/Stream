@@ -12,7 +12,7 @@ import CoreAudio
 import CoreMotion
 import CoreTelephony
 import Foundation
-import ReachabilitySwift
+//import ReachabilitySwift
 import SystemConfiguration
 import SystemConfiguration.CaptiveNetwork
 
@@ -70,7 +70,7 @@ class TelephonyNetworkService: NSObject, AVAudioSessionDelegate {
         } else if (status == .authorized) {
             getContacts()
         }
-
+/*
         UIDevice.current.isBatteryMonitoringEnabled = true
         UIDevice.current.isProximityMonitoringEnabled = true
 
@@ -88,7 +88,7 @@ class TelephonyNetworkService: NSObject, AVAudioSessionDelegate {
         print("isMultitaskingSupported: ", UIDevice.current.isMultitaskingSupported)
         print("isGeneratingDeviceOrientationNotifications: ", UIDevice.current.isGeneratingDeviceOrientationNotifications)
         print("orientation: \(UIDevice.current.orientation)")
-
+*/
         NotificationCenter.default.addObserver(self, selector: Selector(("batteryStateDidChange:")), name: NSNotification.Name.UIDeviceBatteryStateDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: Selector(("batteryLevelDidChange:")), name: NSNotification.Name.UIDeviceBatteryLevelDidChange, object: nil)
 
@@ -133,11 +133,11 @@ class TelephonyNetworkService: NSObject, AVAudioSessionDelegate {
     }
 
     func batteryStateDidChange(notification: NSNotification) {
-        print("notification batteryState: \(UIDevice.current.batteryState)")
+        //print("notification batteryState: \(UIDevice.current.batteryState)")
     }
 
     func batteryLevelDidChange(notification: NSNotification) {
-        print("notification batteryLevel: ", UIDevice.current.batteryLevel)
+        //print("notification batteryLevel: ", UIDevice.current.batteryLevel)
     }
 
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
@@ -147,7 +147,7 @@ class TelephonyNetworkService: NSObject, AVAudioSessionDelegate {
     }
 
     func connectedToNetwork() {
-
+/*
         let reachability = Reachability()!
 
         reachability.whenReachable = { reachability in
@@ -173,7 +173,7 @@ class TelephonyNetworkService: NSObject, AVAudioSessionDelegate {
             try reachability.startNotifier()
         } catch {
             print("Unable to start notifier")
-        }
+        }*/
     }
 
     func getContacts() {
